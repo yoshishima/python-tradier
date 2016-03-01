@@ -29,20 +29,20 @@ def dumps(data):
 def main(api, argv):
     if argv['user']:
         if argv['balances']:
-            print dumps(api.user.balances())
+            print(dumps(api.user.balances()))
             return
 
     if argv['account']:
         if argv['<order_id>']:
-            print api.accounts.order(argv['<account_id>'], argv['<order_id>'])
+            print(api.accounts.order(argv['<account_id>'], argv['<order_id>']))
             return
 
         orders = api.accounts.orders(argv['<account_id>'])
-        print dumps(orders)
+        print(dumps(orders))
         return
-        print len(orders)
+        print(len(orders))
 
-        print
+        print()
         for order in orders:
 
             if order['class'] == 'multileg':
@@ -50,24 +50,26 @@ def main(api, argv):
                 # del order['leg']
                 # print order.keys()
                 # print order
-                print
-                print order
-                print
-                print order['id'], order['symbol'], order['status'], order['class'], order['strategy'], order['price'], order['type']
-                print
+                print()
+                print(order)
+                print()
+                print(order['id'], order['symbol'], order['status'], order['class'],
+                      order['strategy'], order['price'], order['type'])
+                print()
                 continue
-                print
+                print()
                 # for leg in order['leg']:
                 for leg in legs:
-                    print leg
-                print
+                    print(leg)
+                print()
 
             elif order['class'] == 'option':
-                print
-                print order
-                print
-                print order['id'], order['symbol'], order['option_symbol'], order['side'], order['status'], order['quantity'], order['class'], order['price'], order['type']
-                print
+                print()
+                print(order)
+                print()
+                print(order['id'], order['symbol'], order['option_symbol'], order['side'], order['status'],
+                      order['quantity'], order['class'], order['price'], order['type'])
+                print()
 
         return
 
@@ -92,8 +94,8 @@ def main(api, argv):
 
         quotes = [Quote(x) for x in api.markets.quotes(argv['<symbol>'])]
         for q in reversed(sorted(quotes, key=lambda x: x.change)):
-            print '%-6s %6.2f %6.2f %6.2f' % (
-                q.data['symbol'], q.last, q.mid, q.change)
+            print('%-6s %6.2f %6.2f %6.2f' % (
+                q.data['symbol'], q.last, q.mid, q.change))
         return
 
     if argv['calendar']:
@@ -106,14 +108,14 @@ def main(api, argv):
         if not argv['<expiration>']:
             expirations = api.options.expirations(argv['<symbol>'])
             for expiration in expirations:
-                print '%s - in %s days' % (
-                    expiration, (arrow.get(expiration) - arrow.utcnow()).days)
+                print('%s - in %s days' % (
+                    expiration, (arrow.get(expiration) - arrow.utcnow()).days))
             return
 
         contracts = api.options.chains(argv['<symbol>'], argv['<expiration>'])
         for contract in sorted(contracts, key=operator.itemgetter('strike')):
-            print contract['option_type'], contract['strike'], \
-                contract['bid'], contract['ask']
+            print(contract['option_type'], contract['strike'],
+                  contract['bid'], contract['ask'])
         return
 
 if __name__ == '__main__':
