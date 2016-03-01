@@ -1,5 +1,4 @@
 import collections
-import urlparse
 import urllib
 
 
@@ -75,7 +74,7 @@ class tornado(object):
             return Response(
                 response.code, response.headers, response.body.decode('utf-8'))
 
-        @gen.coroutine
+        #@gen.coroutine
         def request(
             self, callback, method, path,
                 headers=None, params=None, data=None):
@@ -98,7 +97,7 @@ class vanilla(object):
     class Client(Base):
         def __init__(self, h, uri):
             self.h = h
-            parsed = urlparse.urlsplit(uri)
+            parsed = urllib.parse.urlsplit(uri)
             self.host = '%s://%s' % (parsed.scheme, parsed.netloc)
             self.conn = self.h.http.connect(self.host)
             self.base_path = parsed.path

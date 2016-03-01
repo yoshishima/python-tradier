@@ -30,7 +30,7 @@ class Tradier(object):
                 raise Exception(response.code, response.body)
             return json.loads(response.body)
 
-        if callback == None:
+        if callback is None:
             cb = base_callback
         else:
             cb = lambda x: callback(base_callback(x))
