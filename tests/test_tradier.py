@@ -11,8 +11,8 @@ def token():
 
 
 def test_core(token):
-    print
-    print
+    print()
+    print()
     c = tradier.Tradier(token)
 
     # print c.request('GET', 'markets/quotes', params={'symbols': 'spy'})
@@ -27,8 +27,8 @@ def test_core(token):
     # print c.watchlists.get('foo21')
     # print c.watchlists.delete('default')
 
-    print
-    print
+    print()
+    print()
 
     """
     print c.user.profile()
@@ -47,7 +47,7 @@ def test_core(token):
     print json.dumps(got, sort_keys=True, indent=4, separators=(',', ': '))
     """
 
-    print c.options.expirations('amrs')
+    print(c.options.expirations('amrs'))
 
     got = c.options.chains('amrs', '2015-09-18')
-    print json.dumps(got, sort_keys=True, indent=4, separators=(',', ': '))
+    print(json.dumps(got, sort_keys=True, indent=4, separators=(',', ': ')))
